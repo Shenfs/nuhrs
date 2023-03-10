@@ -23,8 +23,15 @@ include_once("layouts/header-sidebar.php") ?>
                 </thead>
                 <tbody>
                     <?php 
-                    $selectAllAppointment = mysqli_query($conn,"SELECT *, u1.firstName AS med_prof_firstName, u1.lastName AS med_prof_lastName ,u2.firstName AS stud_firstName, u2.lastName AS stud_lastName, appointment.id AS appointment_id, appointment.status AS appointment_status
-                     FROM appointment INNER JOIN medicalprofessional ON medicalprofessional.id = appointment.medprofID INNER JOIN students ON students.id = appointment.student_id INNER JOIN users AS u1 ON u1.id = medicalprofessional.userID    INNER JOIN users AS u2 ON u2.id = students.userID WHERE appointment.appointment_type='Medical' AND appointment.medprofID ='$active_med_prof_id' ORDER BY from_date DESC");
+                    if($active_specialization == "Nurse"){
+                      $selectAllAppointment = mysqli_query($conn,"SELECT *, u1.firstName AS med_prof_firstName, u1.lastName AS med_prof_lastName ,u2.firstName AS stud_firstName, u2.lastName AS stud_lastName, appointment.id AS appointment_id, appointment.status AS appointment_status
+                      FROM appointment INNER JOIN medicalprofessional ON medicalprofessional.id = appointment.medprofID INNER JOIN students ON students.id = appointment.student_id INNER JOIN users AS u1 ON u1.id = medicalprofessional.userID    INNER JOIN users AS u2 ON u2.id = students.userID WHERE appointment.appointment_type='Medical' ORDER BY from_date DESC");
+                    }
+                    else{
+                      $selectAllAppointment = mysqli_query($conn,"SELECT *, u1.firstName AS med_prof_firstName, u1.lastName AS med_prof_lastName ,u2.firstName AS stud_firstName, u2.lastName AS stud_lastName, appointment.id AS appointment_id, appointment.status AS appointment_status
+                      FROM appointment INNER JOIN medicalprofessional ON medicalprofessional.id = appointment.medprofID INNER JOIN students ON students.id = appointment.student_id INNER JOIN users AS u1 ON u1.id = medicalprofessional.userID    INNER JOIN users AS u2 ON u2.id = students.userID WHERE appointment.appointment_type='Medical' AND appointment.medprofID ='$active_med_prof_id' ORDER BY from_date DESC");
+                     
+                    }
                     while($row = $selectAllAppointment->fetch_assoc()):
                     ?>
                     <tr>

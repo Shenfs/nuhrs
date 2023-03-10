@@ -299,7 +299,7 @@ class MedicalHealthRecordController extends DatabaseConnection{
                 $updateLabResult = mysqli_query($conn,"UPDATE laboratoryresult SET uploadfile='$imgContent',findingsdescription='$findingsdescription',diagnosis='$diagnosis',date_of_lab_testing='$date_of_lab_testing',date_created='$datenow',status='Pending' WHERE id='$med_record_id'");
         
                 if($updateLabResult){
-                    alert("success","Lab Result Successfully Uploaded","Please wait for the approival of lab result","../student/medical-health-record.php");
+                    alert("success","Lab Result Successfully Uploaded","Please wait for the approval of lab result","../student/medical-health-record.php");
                 }
                 else{
                     alert("error","There was an error","","../student/medical-health-record.php");

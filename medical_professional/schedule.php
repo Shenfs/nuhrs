@@ -31,7 +31,13 @@ include_once("layouts/header-sidebar.php") ?>
 
                 while($row = $selectMedSched->fetch_assoc()):?>
                 <tr>
-                    <td><?php echo "Dr. ".$row['firstName']." ".$row['lastName']; ?></td>
+                    <?php if(in_array($row['specialization'],['Nurse'])){ ?>
+                      <td><?php echo $row['firstName']." ".$row['lastName']; ?></td>
+                    <?php }
+                    else{ ?>
+                      <td><?php echo "Dr. ".$row['firstName']." ".$row['lastName']; ?></td>
+                    <?php }?>
+                    
                     <td><?php echo $row['specialization'] ?></td>
                     <td><?php echo date("M-d-Y",strtotime($row['fromSchedule']))." to ".date("M-d-Y",strtotime($row['toSchedule']))?></td>
                     <td>

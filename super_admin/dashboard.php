@@ -12,12 +12,21 @@ $studentRows = $selectAllStudents->num_rows;
 $selectAllAppointments = mysqli_query($conn, "SELECT * FROM appointment");
 $appointmentRows = $selectAllAppointments->num_rows;
 
-$sql = "select complaints, count(*) AS duplicates from medicaltreatmentrecord group by complaints order by duplicates desc";
+$sql = "select diagnosis, count(*) AS duplicates from medicaltreatmentrecord group by diagnosis order by duplicates desc";
 $result = $conn->query($sql);
 $dataPoints = array();
 // output data of each row
 while($row = $result->fetch_assoc()) {
-    array_push($dataPoints,array("label"=>$row['complaints'], "y"=>$row['duplicates']));
+    array_push($dataPoints,array("label"=>$row['diagnosis'], "y"=>$row['duplicates']));
+}
+
+
+$sql2 = "select diagnosis, count(*) AS duplicates from dentaltreatmentrecord group by diagnosis order by duplicates desc";
+$result2 = $conn->query($sql2);
+$dataPoints2 = array();
+// output data of each row
+while($row2 = $result2->fetch_assoc()) {
+    array_push($dataPoints2,array("label"=>$row2['diagnosis'], "y"=>$row2['duplicates']));
 }
 ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -264,7 +273,7 @@ while($row = $result->fetch_assoc()) {
                                     text: ""
                                 },
                                 subtitles: [{
-                                    text: "Complaints Category"//new Date().getFullYear()
+                                    text: "Diagnosis Category"//new Date().getFullYear()
                                 }],
                                 data: [{
                                     type: "pie",
@@ -277,10 +286,29 @@ while($row = $result->fetch_assoc()) {
                             
                             }
                             </script>
-
-                           
-                                <div id="chartContainer" style="height: 370px; width: 50%;"></div>
+                             <div id="chartContainer" style="height: 370px; width: 50%;"></div>
+                            <script>
+                            window.onload = function() {
+                            let chart2 = new CanvasJS.Chart("chartContainer2", {
+                                animationEnabled: true,
+                                title: {
+                                    text: ""
+                                },
+                                subtitles: [{
+                                    text: "Diagnosis Category"//new Date().getFullYear()
+                                }],
+                                data: [{
+                                    type: "pie",
+                                    yValueFormatString: "#,##0.00\"%\"",
+                                    indexLabel: "{label} ({y})",
+                                    dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
+                                }]
+                            });
+                            chart2.render();
                             
+                            }
+                            </script>
+                                <div id="chartContainer2" style="height: 370px; width: 50%;"></div>
                         </div>
                         
                     </div>

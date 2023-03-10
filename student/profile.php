@@ -145,7 +145,7 @@ include_once("layouts/header-sidebar.php") ?>
             </div>
             <div class="row">
                 <div class="col">
-                    <label >Emergency Address</label>
+                    <label >Emergency Persons Address</label>
                     <input type="text" name="emergency_address" class="form-control" readonly value="<?php echo $active_emergency_address ?>" >
                 </div>
                 <div class="col">

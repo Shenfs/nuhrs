@@ -40,7 +40,7 @@ include_once("layouts/header-sidebar.php") ?>
                     </div>
                     <div class="row mt-2 d-flex align-items-center justify-content-end">
                         <div class="col-md-2 ">
-                            <button type="submit" class="form-control btn btn-primary">Export</button>
+                            <button type="submit" name="exportRecords" class="form-control btn btn-primary">Export</button>
                         </div>
                     </div>
                     </form>
